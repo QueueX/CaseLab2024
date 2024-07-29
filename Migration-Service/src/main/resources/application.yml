@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: Migration-Service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/CaseLab2024
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+server:
+  port: 8081
