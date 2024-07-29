@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: File-Storage-Service
+  jpa:
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/CaseLab2024
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+logging:
+  level:
+    web: debug
+server:
+  port: 8080
