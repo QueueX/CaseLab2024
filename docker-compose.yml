@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: "CaseLab"
+      POSTGRES_USER: "GreenAtom"
+      POSTGRES_PASSWORD: "3rjwi624eofi634eio6w34fj2oi9ji6g5o7w3g5j7iwwji567pqg"
+    volumes:
+      - /greenatom-db:/var/lib/postgresql/data
+    networks:
+      - backend
+    ports:
+      - "5432:5432"
+
+  flyway:
+    build:
+      dockerfile: ./Dockerfile
+      context: Migration-Service
+    image: flyway
+    container_name: flyway
+    depends_on:
+      - postgres
+    networks:
+      - backend
+    ports:
+      - "8081:8081"
+
+  file-storage:
+    build:
+      dockerfile: ./Dockerfile
+      context: File-Storage-Service
+    image: file-storage
+    container_name: file-storage
+    depends_on:
+      - flyway
+    networks:
+      - backend
+    ports:
+      - "8080:8080"
+
+networks:
+  backend:
