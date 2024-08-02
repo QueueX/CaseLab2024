@@ -28,9 +28,9 @@ public class FileStorageEntity {
     private String description;
 
     @Column(name = "file", unique = false, nullable = false)
-    private Byte[] file;
+    private byte[] file;
 
-    public FileStorageEntity(String title, Date creationDate, String description, Byte[] file) {
+    public FileStorageEntity(String title, Date creationDate, String description, byte[] file) {
         this.title = title;
         this.creationDate = creationDate;
         this.description = description;
