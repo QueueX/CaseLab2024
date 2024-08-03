@@ -1,6 +1,7 @@
 package org.greenatom.filestorageservice.service;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.greenatom.filestorageservice.entity.FileStorageEntity;
 import org.greenatom.filestorageservice.repository.FileStorageRepository;
 import org.greenatom.filestorageservice.dto.FileInfo;
@@ -13,13 +14,11 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class FileStorageService {
     private final Logger logger = LoggerFactory.getLogger(FileStorageService.class);
-    private final FileStorageRepository fileStorageRepository;
 
-    public FileStorageService(FileStorageRepository fileStorageRepository) {
-        this.fileStorageRepository = fileStorageRepository;
-    }
+    private final FileStorageRepository fileStorageRepository;
 
     @Transactional
     public FileId createFile(FileInfo request) {

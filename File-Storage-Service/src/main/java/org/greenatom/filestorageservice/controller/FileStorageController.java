@@ -1,5 +1,6 @@
 package org.greenatom.filestorageservice.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.greenatom.filestorageservice.dto.FileInfo;
 import org.greenatom.filestorageservice.dto.FileId;
 import org.greenatom.filestorageservice.response.ExceptionResponse;
@@ -12,14 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/api/file-storage")
+@RequiredArgsConstructor
 public class FileStorageController {
     private final Logger logger = LoggerFactory.getLogger(FileStorageController.class);
 
     private final FileStorageService fileStorageService;
-
-    public FileStorageController(FileStorageService fileStorageService) {
-        this.fileStorageService = fileStorageService;
-    }
 
     @PostMapping("/create")
     public ResponseEntity<FileId> createFile(@RequestBody FileInfo request) {
