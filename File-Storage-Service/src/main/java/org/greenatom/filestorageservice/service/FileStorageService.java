@@ -2,6 +2,7 @@ package org.greenatom.filestorageservice.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.greenatom.filestorageservice.entity.FileStorageEntity;
 import org.greenatom.filestorageservice.repository.FileStorageRepository;
 import org.greenatom.filestorageservice.dto.FileInfo;
@@ -31,7 +32,7 @@ public class FileStorageService {
         logger.info("File has been created");
         logger.debug("File: {}", entity);
 
-        fileStorageRepository.save(entity);
+        entity = fileStorageRepository.save(entity);
 
         return new FileId(entity.getId());
     }

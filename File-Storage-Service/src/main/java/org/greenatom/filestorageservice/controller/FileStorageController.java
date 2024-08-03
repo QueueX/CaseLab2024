@@ -5,13 +5,13 @@ import org.greenatom.filestorageservice.dto.FileInfo;
 import org.greenatom.filestorageservice.dto.FileId;
 import org.greenatom.filestorageservice.response.ExceptionResponse;
 import org.greenatom.filestorageservice.service.FileStorageService;
+import org.greenatom.filestorageservice.util.FileNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/api/file-storage")
 @RequiredArgsConstructor
 public class FileStorageController {
@@ -26,13 +26,13 @@ public class FileStorageController {
     }
 
     @GetMapping("/file/id{id}")
-    public ResponseEntity<FileInfo> getFile(@PathVariable Long id) {
+    public ResponseEntity<FileInfo> getFile(@PathVariable Long id) throws FileNotFoundException {
         logger.info("Request to get file {}", id);
         return ResponseEntity.ok(fileStorageService.getFile(id));
     }
 
     @ExceptionHandler
-    public ResponseEntity<ExceptionResponse> handleException(RuntimeException ex) {
+    public ResponseEntity<ExceptionResponse> handleException(Exception ex) {
         logger.error("Exception: {}", ex.getMessage());
         return ResponseEntity.badRequest().body(new ExceptionResponse(ex.getMessage()));
     }
