@@ -2,14 +2,18 @@ package org.greenatom.filestorageservice.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.greenatom.filestorageservice.entity.FileStorageEntity;
 import org.greenatom.filestorageservice.repository.FileStorageRepository;
 import org.greenatom.filestorageservice.dto.FileInfo;
 import org.greenatom.filestorageservice.dto.FileId;
 import org.greenatom.filestorageservice.util.FileNotFoundException;
+import org.greenatom.filestorageservice.util.SortType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -48,4 +52,16 @@ public class FileStorageService {
         return FileInfo.of(entity);
     }
 
+    public Slice<FileStorageEntity> getFeedPage(int page, SortType sortType) {
+        Pageable pageable;
+
+        switch (sortType) {
+            case ASC -> pageable = PageRequest.of(page,10, Sort.by(Sort.Order.asc("creationDate")));
+            case DESC -> pageable = PageRequest.of(page,10, Sort.by(Sort.Order.desc("creationDate")));
+            default -> pageable = PageRequest.of(page, 10);
+        }
+        logger.debug("Sort type is {}", sortType);
+
+        return fileStorageRepository.findAll(pageable);
+    }
 }

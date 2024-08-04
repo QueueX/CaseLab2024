@@ -1,13 +1,17 @@
 package org.greenatom.filestorageservice.controller;
 
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.greenatom.filestorageservice.dto.FileInfo;
 import org.greenatom.filestorageservice.dto.FileId;
+import org.greenatom.filestorageservice.entity.FileStorageEntity;
 import org.greenatom.filestorageservice.response.ExceptionResponse;
 import org.greenatom.filestorageservice.service.FileStorageService;
 import org.greenatom.filestorageservice.util.FileNotFoundException;
+import org.greenatom.filestorageservice.util.SortType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +33,15 @@ public class FileStorageController {
     public ResponseEntity<FileInfo> getFile(@PathVariable Long id) throws FileNotFoundException {
         logger.info("Request to get file {}", id);
         return ResponseEntity.ok(fileStorageService.getFile(id));
+    }
+
+    @GetMapping("/files/{page}")
+    public ResponseEntity<Slice<FileStorageEntity>> getSortedFeedPage(
+            @PathVariable int page,
+            @RequestParam(value = "sort", required = false, defaultValue = "UNSORTED") SortType sortType
+    ) {
+        logger.info("Request to get feed page {} and Sort Type {}", page, sortType);
+        return ResponseEntity.ok(fileStorageService.getFeedPage(page - 1, sortType));
     }
 
     @ExceptionHandler
