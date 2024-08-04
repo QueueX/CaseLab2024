@@ -4,8 +4,7 @@ spring:
   jpa:
     show-sql: true
   datasource:
-    #    url: jdbc:postgresql://postgres:5432/CaseLab
-    url: jdbc:postgresql://localhost:5432/CaseLab
+    url: jdbc:postgresql://postgres:5432/CaseLab
     username: GreenAtom
     password: 3rjwi624eofi634eio6w34fj2oi9ji6g5o7w3g5j7iwwji567pqg
     driver-class-name: org.postgresql.Driver
