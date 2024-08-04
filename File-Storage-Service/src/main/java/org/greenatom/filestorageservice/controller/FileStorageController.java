@@ -1,6 +1,5 @@
 package org.greenatom.filestorageservice.controller;
 
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.greenatom.filestorageservice.dto.FileInfo;
 import org.greenatom.filestorageservice.dto.FileId;
@@ -38,8 +37,14 @@ public class FileStorageController {
     @GetMapping("/files/{page}")
     public ResponseEntity<Slice<FileStorageEntity>> getSortedFeedPage(
             @PathVariable int page,
-            @RequestParam(value = "sort", required = false, defaultValue = "UNSORTED") SortType sortType
+            @RequestParam(value = "sort", required = false, defaultValue = "UNSORTED") String sort
     ) {
+        SortType sortType;
+        try {
+            sortType = SortType.valueOf(sort.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            sortType = SortType.UNSORTED;
+        }
         logger.info("Request to get feed page {} and Sort Type {}", page, sortType);
         return ResponseEntity.ok(fileStorageService.getFeedPage(page - 1, sortType));
     }
