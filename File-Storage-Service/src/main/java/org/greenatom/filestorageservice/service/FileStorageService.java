@@ -10,10 +10,7 @@ import org.greenatom.filestorageservice.util.FileNotFoundException;
 import org.greenatom.filestorageservice.util.SortType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -52,7 +49,7 @@ public class FileStorageService {
         return FileInfo.of(entity);
     }
 
-    public Slice<FileStorageEntity> getFeedPage(int page, SortType sortType) {
+    public Page<FileStorageEntity> getFeedPage(int page, SortType sortType) {
         Pageable pageable;
 
         switch (sortType) {

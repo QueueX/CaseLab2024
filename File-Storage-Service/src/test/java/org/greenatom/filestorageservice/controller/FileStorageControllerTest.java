@@ -12,8 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -86,37 +86,37 @@ class FileStorageControllerTest {
 
     @Test
     void getSortedFeedPage_noSort_returnsUnsortedSlice() {
-        Slice<FileStorageEntity> slice = new SliceImpl<>(Collections.singletonList(entity));
-        when(fileStorageService.getFeedPage(0, SortType.UNSORTED)).thenReturn(slice);
+        Page<FileStorageEntity> page = new PageImpl<>(Collections.singletonList(entity));
+        when(fileStorageService.getFeedPage(0, SortType.UNSORTED)).thenReturn(page);
 
-        ResponseEntity<Slice<FileStorageEntity>> result = fileStorageController.getSortedFeedPage(1, "UNSORTED");
+        ResponseEntity<Page<FileStorageEntity>> result = fileStorageController.getSortedFeedPage(1, "UNSORTED");
 
         assertEquals(HttpStatus.OK, result.getStatusCode());
-        assertEquals(slice, result.getBody());
+        assertEquals(page, result.getBody());
         verify(fileStorageService, times(1)).getFeedPage(0, SortType.UNSORTED);
     }
 
     @Test
     void getSortedFeedPage_withSort_returnsSortedSlice() {
-        Slice<FileStorageEntity> slice = new SliceImpl<>(Collections.singletonList(entity));
-        when(fileStorageService.getFeedPage(0, SortType.ASC)).thenReturn(slice);
+        Page<FileStorageEntity> page = new PageImpl<>(Collections.singletonList(entity));
+        when(fileStorageService.getFeedPage(0, SortType.ASC)).thenReturn(page);
 
-        ResponseEntity<Slice<FileStorageEntity>> result = fileStorageController.getSortedFeedPage(1, "ASC");
+        ResponseEntity<Page<FileStorageEntity>> result = fileStorageController.getSortedFeedPage(1, "ASC");
 
         assertEquals(HttpStatus.OK, result.getStatusCode());
-        assertEquals(slice, result.getBody());
+        assertEquals(page, result.getBody());
         verify(fileStorageService, times(1)).getFeedPage(0, SortType.ASC);
     }
 
     @Test
     void getSortedFeedPage_invalidSort_returnsUnsortedSlice() {
-        Slice<FileStorageEntity> slice = new SliceImpl<>(Collections.singletonList(entity));
-        when(fileStorageService.getFeedPage(0, SortType.UNSORTED)).thenReturn(slice);
+        Page<FileStorageEntity> page = new PageImpl<>(Collections.singletonList(entity));
+        when(fileStorageService.getFeedPage(0, SortType.UNSORTED)).thenReturn(page);
 
-        ResponseEntity<Slice<FileStorageEntity>> result = fileStorageController.getSortedFeedPage(1, "TEST");
+        ResponseEntity<Page<FileStorageEntity>> result = fileStorageController.getSortedFeedPage(1, "TEST");
 
         assertEquals(HttpStatus.OK, result.getStatusCode());
-        assertEquals(slice, result.getBody());
+        assertEquals(page, result.getBody());
         verify(fileStorageService, times(1)).getFeedPage(0, SortType.UNSORTED);
     }
 

@@ -10,7 +10,7 @@ import org.greenatom.filestorageservice.util.FileNotFoundException;
 import org.greenatom.filestorageservice.util.SortType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +35,7 @@ public class FileStorageController {
     }
 
     @GetMapping("/files/{page}")
-    public ResponseEntity<Slice<FileStorageEntity>> getSortedFeedPage(
+    public ResponseEntity<Page<FileStorageEntity>> getSortedFeedPage(
             @PathVariable int page,
             @RequestParam(value = "sort", required = false, defaultValue = "UNSORTED") String sort
     ) {
