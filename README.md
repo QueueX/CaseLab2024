@@ -73,11 +73,6 @@
   -d "{\"title\": \"Title\", \"creationDate\": \"2010-01-02T00:10:00\", \"description\": \"This is descryption for Title file\", \"file\": \"/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD=\"}"
   ```
 
-### Получение файла по id
-  #### CURL-запрос:
-  ```shell
-  curl -L "http://localhost:8080/api/file-storage/file/id1"
-  ```
   #### Тело запроса:
   ```json
   {
@@ -86,6 +81,12 @@
     "description" : "This is descryption for Title file",
     "file" : "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD="
   }
+  ```
+
+### Получение файла по id
+  #### CURL-запрос:
+  ```shell
+  curl -L "http://localhost:8080/api/file-storage/file/id1"
   ```
 
 ### Получение первой страницы ленты с файлами
